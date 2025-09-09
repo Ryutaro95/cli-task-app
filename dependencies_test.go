@@ -1,23 +1,19 @@
 package main
 
 import (
-	"go/build"
 	"testing"
 )
 
-// RED: 必要な依存関係がimportできるかテスト
-func TestDependencies_ShouldImportRequiredPackages(t *testing.T) {
-	requiredPackages := []string{
-		"github.com/rivo/tview",
-		"github.com/spf13/cobra",
-		"github.com/spf13/viper", 
-		"github.com/google/uuid",
-		"github.com/stretchr/testify/assert",
-	}
+// 実際にパッケージをimportしてコンパイルテスト
+import (
+	_ "github.com/rivo/tview"
+	_ "github.com/spf13/cobra"
+	_ "github.com/spf13/viper"
+	_ "github.com/google/uuid"
+	_ "github.com/stretchr/testify/assert"
+)
 
-	for _, pkg := range requiredPackages {
-		if _, err := build.Import(pkg, ".", build.FindOnly); err != nil {
-			t.Errorf("Required package %s cannot be imported: %v", pkg, err)
-		}
-	}
+func TestDependencies_ShouldCompileWithRequiredPackages(t *testing.T) {
+	// パッケージがimportできればこのテストがコンパイル・実行される
+	t.Log("All required dependencies are available and can be imported")
 }
