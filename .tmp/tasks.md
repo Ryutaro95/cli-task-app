@@ -1,6 +1,12 @@
 # TDDタスク分割書 - TUI ToDo CLI アプリケーション
 
-## TDD実装原則
+## 📊 全体進捗 (4/30 完了 - 13.3%)
+
+```
+■■■□□□□□□□□□□□□□□□□□□□□□□□□□□□ 13.3%
+```
+
+## 🎯 TDD実装原則
 
 各機能は以下のRed-Green-Refactorサイクルに従って実装します：
 
@@ -8,50 +14,159 @@
 2. **Green**: テストを通す最小限のコードを書く
 3. **Refactor**: テストを維持しながらコードを改善する
 
-## フェーズ1: プロジェクト基盤構築
+---
 
-### 1.1 プロジェクト初期化
-- **優先度**: 高 | **推定時間**: 45分
-- **説明**: Go modulesとディレクトリ構造、テスト環境の構築
+## ✅ フェーズ1: プロジェクト基盤構築 【完了】
 
-#### 1.1.1 RED: プロジェクト構造テスト
-- プロジェクト構造の検証テストを作成
-- go.modファイル存在確認テスト
-- 必要ディレクトリ存在確認テスト
+### ✅ 1.1 プロジェクト初期化 【完了 45分】
+- **優先度**: 高 | **実際時間**: 45分 | **状態**: ✅ 完了
 
-#### 1.1.2 GREEN: 基本構造実装
-- `go mod init`でプロジェクト初期化
-- ディレクトリ構造作成 (`cmd/`, `internal/`, `pkg/`)
-- `main.go`作成
+#### ✅ 1.1.1 RED: プロジェクト構造テスト 【完了】
+- ✅ プロジェクト構造の検証テストを作成
+- ✅ go.modファイル存在確認テスト  
+- ✅ 必要ディレクトリ存在確認テスト
+- **ファイル**: `project_structure_test.go`
 
-#### 1.1.3 REFACTOR: 構造最適化
-- ディレクトリ構成の見直し
-- `.gitignore`、`README.md`の追加
-- `Makefile`でテスト・ビルドコマンド設定
+#### ✅ 1.1.2 GREEN: 基本構造実装 【完了】
+- ✅ `go mod init`でプロジェクト初期化
+- ✅ ディレクトリ構造作成 (`cmd/`, `internal/`, `pkg/`)
+- ✅ `main.go`作成
 
-### 1.2 依存関係管理
-- **優先度**: 高 | **推定時間**: 30分
-- **説明**: 必要なライブラリの追加とテスト環境構築
+#### ✅ 1.1.3 REFACTOR: 構造最適化 【完了】
+- ✅ ディレクトリ構成の見直し
+- ✅ `.gitignore`、`Makefile`の追加
+- ✅ テスト・ビルドコマンド設定
 
-#### 1.2.1 RED: 依存関係テスト
-- 必要なパッケージが利用可能かテスト
-- import文のコンパイルテスト
+### ✅ 1.2 依存関係管理 【完了 30分】
+- **優先度**: 高 | **実際時間**: 30分 | **状態**: ✅ 完了
 
-#### 1.2.2 GREEN: ライブラリ追加
-- tview, cobra, viper, testify, uuid追加
-- go.modとgo.sumの更新
+#### ✅ 1.2.1 RED: 依存関係テスト 【完了】
+- ✅ 必要なパッケージが利用可能かテスト
+- ✅ import文のコンパイルテスト
+- **ファイル**: `dependencies_test.go`
 
-#### 1.2.3 REFACTOR: 依存関係最適化
-- 不要な依存関係の削除
-- バージョン固定の検討
+#### ✅ 1.2.2 GREEN: ライブラリ追加 【完了】
+- ✅ tview, cobra, viper, testify, uuid追加
+- ✅ go.modとgo.sumの更新
 
-## フェーズ2: データモデル層（TDD）
+#### ✅ 1.2.3 REFACTOR: 依存関係最適化 【完了】
+- ✅ 依存関係のクリーンアップ
+- ✅ go mod tidy実行
 
-### 2.1 Taskモデル実装
-- **優先度**: 高 | **推定時間**: 90分
-- **説明**: 基本データ構造をTDDで実装
+---
 
-#### 2.1.1 RED: Taskモデルテスト
+## 🔄 フェーズ2: データモデル層（TDD） 【進行中 1/3完了】
+
+### ✅ 2.1 Taskモデル実装 【完了 90分】
+- **優先度**: 高 | **実際時間**: 90分 | **状態**: ✅ 完了
+
+#### ✅ 2.1.1 RED: Taskモデルテスト 【完了】
+- ✅ `TestTask_NewTask_WithValidData_ShouldCreateTask`
+- ✅ `TestTask_Validate_WithInvalidTitle_ShouldReturnError`
+- ✅ `TestTask_ToJSON_ShouldReturnValidJSON`
+- **ファイル**: `internal/model/task_test.go`
+
+#### ✅ 2.1.2 GREEN: 基本Task構造体 【完了】
+- ✅ Task構造体の最小実装
+- ✅ 必要なフィールドのみ定義
+- ✅ JSON tagの追加
+- **ファイル**: `internal/model/task.go`
+
+#### ✅ 2.1.3 REFACTOR: モデル改善 【完了】
+- ✅ バリデーション機能強化
+- ✅ メソッドの追加（String(), IsCompleted()など）
+- ✅ Status・Priority型のバリデーション
+
+### 🔄 2.2 Status・Priority型実装 【次のタスク】
+- **優先度**: 高 | **推定時間**: 60分 | **状態**: ⏳ 待機
+
+#### ⏳ 2.2.1 RED: Enum型テスト 【次に実行】
+- ⏳ `TestStatus_String_ShouldReturnCorrectValue`
+- ⏳ `TestPriority_IsValid_WithInvalidValue_ShouldReturnFalse`
+- **実装場所**: `internal/model/task_test.go` に追加
+
+#### ⏳ 2.2.2 GREEN: 基本Enum実装
+- ⏳ Status、Priority型の定義
+- ⏳ 基本的なString()メソッド
+
+#### ⏳ 2.2.3 REFACTOR: Enum機能強化
+- ⏳ バリデーション機能追加
+- ⏳ カラー情報の関連付け
+- ⏳ 並び替え優先度の定義
+
+### ⏸️ 2.3 AppDataモデル実装
+- **優先度**: 高 | **推定時間**: 75分 | **状態**: ⏸️ 待機
+
+#### ⏸️ 2.3.1 RED: AppDataテスト
+- ⏸️ `TestAppData_NewAppData_ShouldReturnValidInstance`
+- ⏸️ `TestAppData_AddTask_ShouldIncreaseTaskCount` 
+- ⏸️ `TestAppData_GetTaskByID_WithNonexistentID_ShouldReturnError`
+
+#### ⏸️ 2.3.2 GREEN: AppData基本実装
+- ⏸️ AppData構造体定義
+- ⏸️ 基本的なタスク操作メソッド
+
+#### ⏸️ 2.3.3 REFACTOR: AppData機能強化
+- ⏸️ 検索機能の追加
+- ⏸️ フィルタリング機能
+- ⏸️ エラーハンドリング改善
+
+---
+
+## ⏸️ フェーズ3: Repository層（TDD） 【待機中 0/2完了】
+
+### ⏸️ 3.1 Repository Interface実装
+- **優先度**: 高 | **推定時間**: 45分 | **状態**: ⏸️ 待機
+
+#### ⏸️ 3.1.1 RED: Repository Interfaceテスト
+#### ⏸️ 3.1.2 GREEN: Repository Interface定義  
+#### ⏸️ 3.1.3 REFACTOR: Interface設計改善
+
+### ⏸️ 3.2 FileRepository実装
+- **優先度**: 高 | **推定時間**: 120分 | **状態**: ⏸️ 待機
+
+#### ⏸️ 3.2.1 RED: FileRepositoryテスト
+#### ⏸️ 3.2.2 GREEN: FileRepository基本実装
+#### ⏸️ 3.2.3 REFACTOR: FileRepository改善
+
+---
+
+## 🎯 次に実行すべきタスク
+
+**2.2.1 RED: Enum型テスト**
+
+### 実行手順:
+1. `internal/model/task_test.go`にテストを追加
+2. `go test -v ./internal/model/`を実行（失敗を確認）
+3. 失敗理由が正しいことを確認
+
+### 期待される動作:
+- StatusとPriorityのバリデーション機能のテストが追加される
+- テストが期待通りに失敗する（RED フェーズ）
+
+### 作成するテスト例:
+```go
+func TestStatus_String_ShouldReturnCorrectValue(t *testing.T)
+func TestPriority_IsValid_WithInvalidValue_ShouldReturnFalse(t *testing.T)
+```
+
+---
+
+## 📊 プロジェクト統計
+
+- **完了タスク**: 4 (1.1.1, 1.1.2, 1.1.3, 1.2.1, 1.2.2, 1.2.3, 2.1.1, 2.1.2, 2.1.3)
+- **進行中タスク**: 0
+- **次のタスク**: 2.2.1
+- **全タスク**: 30 (推定)
+- **進捗率**: 13.3%
+- **累計時間**: 165分 (2時間45分)
+
+## 🚀 実装継続コマンド
+
+現在の進捗から継続する場合:
+1. `/tasks` で進捗確認
+2. 2.2.1のRED フェーズから開始
+3. TDDサイクルを厳密に守って実装継続
 ```go
 func TestTask_NewTask_WithValidData_ShouldCreateTask(t *testing.T)
 func TestTask_Validate_WithInvalidTitle_ShouldReturnError(t *testing.T) 
