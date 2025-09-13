@@ -1,47 +1,40 @@
-.PHONY: test build clean install run coverage
+# Task CLI Makefile
 
 BINARY_NAME=task-cli
-VERSION=$(shell git describe --tags --always --dirty 2>/dev/null || echo "dev")
-LDFLAGS=-ldflags "-X main.version=${VERSION}"
+MAIN_PATH=./cmd/task-cli
+BUILD_FLAGS=-ldflags="-s -w"
 
-# Test commands
+.PHONY: all build test clean run deps help
+
+all: test build
+
+build:
+	@echo "Building $(BINARY_NAME)..."
+	go build $(BUILD_FLAGS) -o $(BINARY_NAME) $(MAIN_PATH)
+
 test:
+	@echo "Running tests..."
 	go test -v ./...
 
-test-coverage:
-	go test -coverprofile=coverage.out ./...
-	go tool cover -html=coverage.out -o coverage.html
-
-# Build commands
-build:
-	go build ${LDFLAGS} -o bin/${BINARY_NAME} .
-
-build-all:
-	GOOS=linux GOARCH=amd64 go build ${LDFLAGS} -o bin/${BINARY_NAME}-linux-amd64 .
-	GOOS=darwin GOARCH=amd64 go build ${LDFLAGS} -o bin/${BINARY_NAME}-darwin-amd64 .
-	GOOS=windows GOARCH=amd64 go build ${LDFLAGS} -o bin/${BINARY_NAME}-windows-amd64.exe .
-
-# Development commands
-run: build
-	./bin/${BINARY_NAME}
-
 clean:
-	rm -rf bin/
-	rm -f coverage.out coverage.html
+	@echo "Cleaning..."
 	go clean
+	rm -f $(BINARY_NAME)
 
-install: build
-	cp bin/${BINARY_NAME} ${GOPATH}/bin/
+run: build
+	@echo "Running $(BINARY_NAME)..."
+	./$(BINARY_NAME)
 
-# Linting and formatting
-fmt:
-	go fmt ./...
-
-vet:
-	go vet ./...
-
-tidy:
+deps:
+	@echo "Downloading dependencies..."
+	go mod download
 	go mod tidy
 
-# Development workflow
-dev: fmt vet test build
+help:
+	@echo "Available commands:"
+	@echo "  build    - Build the application"
+	@echo "  test     - Run all tests"
+	@echo "  clean    - Clean build artifacts"
+	@echo "  run      - Build and run the application" 
+	@echo "  deps     - Download dependencies"
+	@echo "  help     - Show this help"
